@@ -1,5 +1,11 @@
+/* General Styling */
+html {
+    font-size: 16px;
+}
+
 body {
     margin: 0;
+    font-family: 'Sigmar';
 }
 
 .main-content {
@@ -8,34 +14,102 @@ body {
     align-items: center;
 }
 
+.btn {
+    border-radius: 8px;
+    border: 0;
+}
+
+.color:hover {
+
+}
+
+/* Pokedex Card */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 #pokedex {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: calc(50% - 40vh);
-    min-height: 80vh;
-    min-width: 25vw;
+    height: 80vh;
+    width: 380px;
     color: white;
     text-align: center;
-
     border-radius: 24px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);
 }
 
+
+/* Upper Part of the Card */
 #pokemonSprite {
-    max-width: 50%;
-    max-height: 50%;
-    margin-bottom: 16px;
+    max-width: 60%;
+    position: absolute;
+    bottom: 0;
+    right: calc(50% - 114px);
+    z-index: 1;
+}
+
+#pokeball-bg {
+    width: 200px;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 #pokedexOverview {
-    height: 60%;
+    position: relative;
+    height: 55%;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
 }
 
+#cardHeading {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#pokemonTypes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px 0;
+    margin-left: 8px;
+    width: 33%;
+}
+
+.type {
+    padding: 8px;
+    border-radius: 40px 999em 999em 40px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#pokemonName {
+    font-size: 3rem;
+    font-family: 'Sigmar';
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#pokemonId {
+    font-size: 1.5rem;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+
+/* Lower Part of the Card */
 #pokedexStats {
-    height: 40%;
-    border-radius: 24px 24px 0 0;
+    border-radius: 24px;
+    background-color: white;
+
     flex: 1;
 }

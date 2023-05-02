@@ -5,28 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
+    <title>Pokédex</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="types.css">
     <link rel="icon" href="img/favicon.png">
     <script src="script.js"></script>
 
 </head>
 
 <body onload="loadPokemon()">
-    <div class="main-content">
+
+    <div class="modal">
         <div id="pokedex">
 
             <div id="pokedexOverview">
-                <h1 id="pokemonName"></h1>
+                <div id="cardHeading">
+                    <span id="pokemonName"></span>
+                    <span id="pokemonId">#</span>
+                </div>
+                <div id="pokemonTypes">
+
+                </div>
+                <img id="pokeball-bg" src="img/pokeball-bg.png" alt="">
                 <img id="pokemonSprite" src="" alt="">
             </div>
 
             <div id="pokedexStats">
-
+                <nav>
+                    <button class="btn">About</button>
+                    <button class="btn">Base Stats</button>
+                    <button class="btn">Evolution</button>
+                    <button class="btn">Moves</button>
+                </nav>
+                <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium ut debitis quis ipsa
+                    sapiente labore voluptatem doloribus ea. Dolor, molestias quod! Esse reprehenderit necessitatibus
+                    quisquam quidem quas. Quam, non.
+                </div>
             </div>
-            
         </div>
+    </div>
     </div>
 </body>
 
