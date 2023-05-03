@@ -129,6 +129,12 @@ header {
 .pokemon-cards {
     display: flex;
     position: relative;
+    width: 300px;
+    height: 400px;
+}
+
+.pokemon-cards img {
+    height: 50%;
 }
 
 #listOfPokemon {
