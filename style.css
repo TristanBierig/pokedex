@@ -19,8 +19,18 @@ body {
     border: 0;
 }
 
-.color:hover {
+.d-none {
+    display: none !important;
+}
 
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 /* Pokedex Card */
@@ -50,7 +60,7 @@ body {
 
 
 /* Upper Part of the Card */
-#pokemonSprite {
+#pokedexSprite {
     max-width: 60%;
     position: absolute;
     bottom: 0;
@@ -79,7 +89,7 @@ body {
     justify-content: space-between;
 }
 
-#pokemonTypes {
+#pokedexTypes {
     display: flex;
     flex-direction: column;
     gap: 8px 0;
@@ -94,13 +104,13 @@ body {
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
-#pokemonName {
+#pokedexName {
     font-size: 3rem;
     font-family: 'Sigmar';
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
-#pokemonId {
+#pokedexId {
     font-size: 1.5rem;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
@@ -112,4 +122,18 @@ body {
     background-color: white;
 
     flex: 1;
+}
+
+
+/* List of all Pokemon */
+.pokemon-cards {
+    display: flex;
+    position: relative;
+}
+
+#listOfPokemon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }

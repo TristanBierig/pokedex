@@ -8,46 +8,60 @@
     <title>Pokédex</title>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="fonts.css">
-    <link rel="stylesheet" href="types.css">
-    <link rel="icon" href="img/favicon.png">
+    <link rel="stylesheet" href="src/css/fonts.css">
+    <link rel="stylesheet" href="src/css/types.css">
+    <link rel="icon" href="src/img/favicon.png">
     <script src="script.js"></script>
 
 </head>
 
 <body onload="loadPokemon()">
+    <header>
+        <img src="src/img/logo.png" alt="">
+        <form action="">
+            <input type="text" placeholder="Pokemon Name oder Id">
+            <button>Suchen</button>
+        </form>
+    </header>
 
-    <div class="modal">
-        <div id="pokedex">
+    <main id="main-content">
+        <section id="listOfPokemon">
+           
+        </section>
 
-            <div id="pokedexOverview">
-                <div id="cardHeading">
-                    <span id="pokemonName"></span>
-                    <span id="pokemonId">#</span>
+
+        <section class="modal d-none">
+            <div id="pokedex">
+
+                <div id="pokedexOverview">
+                    <div id="cardHeading">
+                        <span id="pokedexName"></span>
+                        <span id="pokedexId">#</span>
+                    </div>
+                    <div id="pokedexTypes">
+
+                    </div>
+                    <img id="pokeball-bg" src="src/img/pokeball-bg.png" alt="">
+                    <img id="pokedexSprite" src="" alt="">
                 </div>
-                <div id="pokemonTypes">
 
+                <div id="pokedexStats">
+                    <nav>
+                        <button class="btn">About</button>
+                        <button class="btn">Base Stats</button>
+                        <button class="btn">Evolution</button>
+                        <button class="btn">Moves</button>
+                    </nav>
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium ut debitis quis ipsa
+                        sapiente labore voluptatem doloribus ea. Dolor, molestias quod! Esse reprehenderit
+                        necessitatibus
+                        quisquam quidem quas. Quam, non.
+                    </div>
                 </div>
-                <img id="pokeball-bg" src="img/pokeball-bg.png" alt="">
-                <img id="pokemonSprite" src="" alt="">
             </div>
-
-            <div id="pokedexStats">
-                <nav>
-                    <button class="btn">About</button>
-                    <button class="btn">Base Stats</button>
-                    <button class="btn">Evolution</button>
-                    <button class="btn">Moves</button>
-                </nav>
-                <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium ut debitis quis ipsa
-                    sapiente labore voluptatem doloribus ea. Dolor, molestias quod! Esse reprehenderit necessitatibus
-                    quisquam quidem quas. Quam, non.
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+        </section>
+    </main>
 </body>
 
 </html>
