@@ -25,7 +25,7 @@
 }
 
 .poison {
-    background-color: rgb(184, 99, 196);
+    background-color: rgba(184, 99, 196, 0.8);
 }
 
 .fairy {
@@ -74,22 +74,42 @@
 
 
 /* ========== Used for whole card BG-Color  ========== */
-.black {}
+.black {
+    background-image: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(22, 21, 21, 1, 0.8));
+}
 
-.blue {}
+.blue {
+    background-image: linear-gradient(180deg, rgba(0, 106, 228, 0.2), rgb(0, 106, 228, 0.8));
+}
 
-.brown {}
+.brown {
+    background-image: linear-gradient(180deg, rgba(160, 91, 0, 0.2), rgba(160, 91, 0, 0.8));
+}
 
-.gray {}
+.gray {
+    background-image: linear-gradient(180deg, rgba(45, 79, 119, 0.2), rgba(45, 79, 119, 0.8));
+}
 
-.green {}
+.green {
+    background-image: linear-gradient(180deg, rgba(56, 124, 65, 0.2), rgb(56, 124, 65, 0.8));
+}
 
-.pink {}
+.pink {
+    background-image: linear-gradient(180deg, rgba(238, 132, 215, 0.2), rgb(238, 132, 215, 0.8));
+}
 
-.purple {}
+.purple {
+    background-image: linear-gradient(180deg, rgba(47, 14, 85, 0.2), rgba(47, 14, 85, 0.8));
+}
 
-.red {}
+.red {
+    background-image: linear-gradient(180deg, rgba(124, 14, 1, 0.2), rgb(124, 14, 1, 0.8));
+}
 
-.white {}
+.white {
+    background-image: linear-gradient(180deg, rgba(173, 187, 202, 0.2), rgba(173, 187, 202, 0.8));
+}
 
-.yellow {}
+.yellow {
+    background-image: linear-gradient(180deg, rgba(206, 202, 5, 0.2), rgba(206, 202, 5, 0.8));
+}

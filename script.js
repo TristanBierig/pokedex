@@ -1,5 +1,5 @@
 let currentPokemon;
-let pokemonNumber = 100;
+let pokemonNumber = 20;
 
 async function loadPokemon() {
     let url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonNumber;
@@ -14,7 +14,6 @@ async function loadPokemon() {
     currentSpecies = await responseSpecies.json();
 
     console.log('Loaded pokemon', currentPokemon, currentSpecies, /*currentAbilities*/);
-    renderPokemonInfo();
     renderListOfPokemon();
 }
 
@@ -37,12 +36,13 @@ async function renderListOfPokemon() {
 
     for (let i = 1; i < 20; i++) {
         let pokemonName = currentSpecies.names.find((name) => name.language.name === 'de')?.name; // Searches for german Name
+        let pokemonFlavor = currentSpecies.flavor_text_entries.find((flavor) => flavor.language.name === 'de')?.flavor_text;
         let pokemonID = pokemonNumber.toString().padStart(3, "0"); // ID of Pokemon
         let pokemonImage = currentPokemon.sprites.other["official-artwork"].front_default; // URL of Image of Pokemon
         let pokemonColor = currentSpecies.color.name; // Color of Pokemon used as BG
-    
-        listContainer.innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor);
-        pokemonTypeLabels(i);
+
+        listContainer.innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
+        // pokemonTypeLabels(i);
         pokemonNumber = pokemonNumber + 1;
 
         let url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonNumber;
@@ -67,17 +67,27 @@ function pokemonTypeLabels(j) {
 }
 
 
-function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor) {
+function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor) {
     return `
     <div class="pokemon-cards ${pokemonColor}" id="pokemon${i}">
-        <div id="">
-            <span class="pokemonName" id="">${pokemonName}</span>
-            <span class="pokemonId" id="pokemonId">#${pokemonID}</span>
-            <div class="pokemonTypes" id="pokemonTypes${i}"></div>
+    
+        <div class="pokeball-bg">
+            <img class="pokemon-sprite" src="${pokemonImage}" alt="">
+
+            <div class="card-header">
+                <span class="pokemon-name" id="">${pokemonName}</span>
+                <span class="pokemon-id" id="pokemonId">#${pokemonID}</span>
+            </div>
+            
+            <div class="card-line"></div>
         </div>
 
-        <img class="pokeball-bg" src="/src/img/pokeball-bg.png" alt="">
-        <img id="pokemonSprite" src="${pokemonImage}" alt="">
+        <div class="pokemon-flavor">
+                "${pokemonFlavor}"
+        </div>
+
+        <div class="pokemon-types" id="pokemonTypes${i}">
+        </div>
     </div>
     `;
 }
