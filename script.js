@@ -1,5 +1,5 @@
 let currentPokemon;
-let pokemonNumber = 20;
+let pokemonNumber = 1;
 
 async function loadPokemon() {
     let url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonNumber;
@@ -24,8 +24,6 @@ function renderPokemonInfo() {
     document.getElementById('pokedexSprite').src = currentPokemon.sprites.other["official-artwork"].front_default; // Image of Pokemon
     document.getElementById('pokedexOverview').style.backgroundColor = currentSpecies.color.name; // Color of Pokemon used as BG
     document.getElementById('pokedexStats').style.boxShadow = `0 -24px 0 0 ${currentSpecies.color.name}`; // Color of Pokemon used for Styling of Pokedex Card
-
-
 }
 
 
@@ -42,7 +40,7 @@ async function renderListOfPokemon() {
         let pokemonColor = currentSpecies.color.name; // Color of Pokemon used as BG
 
         listContainer.innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
-        // pokemonTypeLabels(i);
+        pokemonTypeLabels(i);
         pokemonNumber = pokemonNumber + 1;
 
         let url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonNumber;

@@ -98,12 +98,12 @@ header {
 }
 
 .type {
+    min-width: 60px;
+    text-align: center;
     padding: 8px;
     margin-bottom: 8px;
-    border-radius: 40px 999em 999em 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 40px 40px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
@@ -123,7 +123,6 @@ header {
 #pokedexStats {
     border-radius: 24px;
     background-color: white;
-
     flex: 1;
 }
 
@@ -141,6 +140,7 @@ header {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     transition: 0.3s ease-in-out;
     cursor: pointer;
+    margin-top: 24px;
 }
 
 #listOfPokemon {
@@ -178,6 +178,8 @@ header {
     background-size: contain;
 }
 
+
+/* Content of Cards */
 .card-header {
     display: flex;
     flex-direction: column;
@@ -191,19 +193,26 @@ header {
 }
 
 .pokemon-types {
-    max-width: 33%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
     opacity: 0;
     visibility: hidden;
-    transition: 425ms ease;
+    transition: 225ms ease;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     color: white;
+    position: relative;
+    bottom: 20%;
 }
 
 .card-line {
     height: 1px;
     width: 80%;
-    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20%;
+    background-color: rgba(0, 0, 0, 0.3);
     visibility: hidden;
+    transition: 425ms ease-out;
+    transform: scale(0, 1);
 }
 
 .pokemon-sprite {
@@ -218,34 +227,60 @@ header {
     visibility: hidden;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
     color: white;
-    transition: 425ms ease;
+    transition: 625ms ease;
     position: relative;
     top: -20%;
     text-align: center;
     font-size: 0.8rem;
     padding: 8px;
+    transform: scale(1, 0);
+    font-family: cursive;
+    font-size: 1rem;
 }
 
 
+/* Hover Effects on cards */
 .pokemon-cards:hover {
-    height: 400px;
+    height: 430px;
     transition-delay: 125ms;
 }
 
 .pokemon-cards:hover .pokemon-types {
     opacity: 1;
     visibility: visible;
-    transition-delay: 325ms;
+    transition-delay: 725ms;
 }
 
 .pokemon-cards:hover .pokemon-flavor {
     opacity: 1;
     visibility: visible;
     transition-delay: 325ms;
+    transform: scale(1, 1);
 }
 
 .pokemon-cards:hover .card-line {
     opacity: 1;
     visibility: visible;
     transition-delay: 325ms;
+    transform: scale(1, 1);
+}
+
+.pokemon-cards:hover .pokeball-bg::before {
+    animation-name: rotate;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-delay: 125ms;
+}
+
+
+/* Animations */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
