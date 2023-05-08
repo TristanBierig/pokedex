@@ -1,29 +1,34 @@
 let currentPokemon;
 let pokemonNumber = 1;
+let pokemonRequests = [];
+let pokemonData = [];
+let pokemonResponse = [];
+
+
+function init() {
+    loadPokemon();
+}
+
 
 async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/' + pokemonNumber;
-    let responsePokemon = await fetch(url);
-    currentPokemon = await responsePokemon.json();
 
-    // let urlAbilites = 'https://pokeapi.co/api/v2/ability/' + pokemonNumber;
-    // let responseAbilites = await fetch(urlAbilites);
-    // currentAbilities = await responseAbilites.json();
+    for (let i = 1; i <= 20; i++) {
+        let url = 'https://pokeapi.co/api/v2/pokemon/' + i;
+        pokemonRequests.push(fetch(url));
+    }
+    pokemonResponse = await Promise.all(pokemonRequests);
+    pokemonData = await Promise.all(pokemonResponse.map(response => response.json()));
+    
+
+
 
     let responseSpecies = await fetch(currentPokemon.species.url);
     currentSpecies = await responseSpecies.json();
 
+    loadedPokemonGerman[0]['name'] = currentSpecies.names.find((name) => name.language.name === 'de')?.name;
+
     console.log('Loaded pokemon', currentPokemon, currentSpecies, /*currentAbilities*/);
     renderListOfPokemon();
-}
-
-
-function renderPokemonInfo() {
-    document.getElementById('pokedexName').innerHTML = currentSpecies.names[5].name; // Name of Pokemon
-    document.getElementById('pokedexId').innerHTML += pokemonNumber.toString().padStart(3, "0"); // ID of Pokemon
-    document.getElementById('pokedexSprite').src = currentPokemon.sprites.other["official-artwork"].front_default; // Image of Pokemon
-    document.getElementById('pokedexOverview').style.backgroundColor = currentSpecies.color.name; // Color of Pokemon used as BG
-    document.getElementById('pokedexStats').style.boxShadow = `0 -24px 0 0 ${currentSpecies.color.name}`; // Color of Pokemon used for Styling of Pokedex Card
 }
 
 
@@ -31,8 +36,9 @@ async function renderListOfPokemon() {
     let listContainer = document.getElementById('listOfPokemon');
 
     // listContainer.innerHTML = '';
-
+    
     for (let i = 1; i < 20; i++) {
+       
         let pokemonName = currentSpecies.names.find((name) => name.language.name === 'de')?.name; // Searches for german Name
         let pokemonFlavor = currentSpecies.flavor_text_entries.find((flavor) => flavor.language.name === 'de')?.flavor_text;
         let pokemonID = pokemonNumber.toString().padStart(3, "0"); // ID of Pokemon
