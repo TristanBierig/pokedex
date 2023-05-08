@@ -138,9 +138,8 @@ header {
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    transition: 0.3s ease-in-out;
+    transition: 0.5s ease-in-out;
     cursor: pointer;
-    margin-top: 24px;
 }
 
 #listOfPokemon {
@@ -148,8 +147,9 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
+    padding-top: 100px;
     gap: 80px;
+    overflow: hidden;
 }
 
 .pokeball-bg {
@@ -242,7 +242,7 @@ header {
 /* Hover Effects on cards */
 .pokemon-cards:hover {
     height: 430px;
-    transition-delay: 125ms;
+    /* transition-delay: 125ms; */
 }
 
 .pokemon-cards:hover .pokemon-types {
