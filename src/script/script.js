@@ -1,86 +1,75 @@
-let currentPokemon;
-let pokemonNumber = 1;
-let pokemonRequests = [];
-let pokemonData = [];
-let pokemonResponse = [];
+let pokemonLoaded = 0;
+let pokemonRendered = 0;
+let pokemonLoadedMax = 30; // Defines number of pokemon getting loaded in one run. If change, then LOC 86, 87 numbers have to be changed accordingly
+let contentLoaded = true;
+
+let pokemonRequests1 = [];
+let pokemonRequests2 = [];
+let pokemonData1 = [];
+let pokemonData2 = [];
+let pokemonResponse1 = [];
+let pokemonResponse2 = [];
 
 
-function init() {
-    loadPokemon();
-}
-
-
-async function loadPokemon() {
-    await loadPokemonSprite();
-    await loadPokemonOverview();
-
+async function init() {
+    await loadAllPokemonData();
+    createGermanJson();
     renderListOfPokemon();
+    resetFetchedCachedData();
 }
 
 
-async function loadPokemonSprite() {
-    for (let i = 1; i <= 50; i++) {
-        let url = 'https://pokeapi.co/api/v2/pokemon/' + i;
-        pokemonRequests.push(fetch(url));
-        createNewJsonObject();
+async function loadAllPokemonData() {
+    // Gets all the data needed from API
+    for (let i = pokemonLoaded + 1; i <= pokemonLoadedMax; i++) {
+        const url1 = 'https://pokeapi.co/api/v2/pokemon/' + i;
+        const url2 = 'https://pokeapi.co/api/v2/pokemon-species/' + i;
+        pokemonRequests1.push(fetch(url1));
+        pokemonRequests2.push(fetch(url2));
     }
-    pokemonResponse = await Promise.all(pokemonRequests);
-    pokemonData = await Promise.all(pokemonResponse.map(response => response.json()));
 
-    for (let j = 0; j < pokemonData.length; j++) {
-        let data = loadedPokemonGerman[j];
-        data['image'] = pokemonData[j].sprites.other["official-artwork"].front_default;
+    pokemonResponse1 = await Promise.all(pokemonRequests1);
+    pokemonResponse2 = await Promise.all(pokemonRequests2);
+    pokemonData1 = await Promise.all(pokemonResponse1.map(response => response.json()));
+    pokemonData2 = await Promise.all(pokemonResponse2.map(response => response.json()));
+}
 
-        for (let k = 0; k < pokemonData[j].types.length; k++) {
-            data['types'].push(pokemonData[j].types[k].type.name);
+
+function createGermanJson() {
+    for (let i = 0; i < pokemonData1.length; i++) {
+
+        let id = pokemonData1[i].id;
+        let name = pokemonData2[i].names.find((name) => name.language.name === 'de')?.name;
+        let color = pokemonData2[i].color.name;
+        let image = pokemonData1[i].sprites.other["official-artwork"].front_default;
+        let flavor = pokemonData2[i].flavor_text_entries.find((flavor) => flavor.language.name === 'de')?.flavor_text;
+
+        if (flavor == undefined) {
+            flavor = "Für dieses Pokémon ist noch keine Beschreibung verfügbar!";
         }
 
+        loadedPokemonGerman.push({
+            'id': id,
+            'name': name,
+            'color': color,
+            'image': image,
+            'flavor': flavor,
+            'types': []
+        });
+
+        for (let j = 0; j < pokemonData1[i].types.length; j++) {
+            loadedPokemonGerman[pokemonLoaded]['types'].push(pokemonData1[i].types[j].type.name);
+        }
+        pokemonLoaded = pokemonLoaded + 1;
     }
-
-    pokemonRequests = [];
-    pokemonResponse = [];
-    pokemonData = [];
-}
-
-
-async function loadPokemonOverview() {
-    for (let i = 1; i <= 50; i++) {
-        let url2 = 'https://pokeapi.co/api/v2/pokemon-species/' + i;
-        pokemonRequests.push(fetch(url2));
-    }
-    pokemonResponse = await Promise.all(pokemonRequests);
-    pokemonData = await Promise.all(pokemonResponse.map(response => response.json()));
-
-    for (let j = 0; j < pokemonData.length; j++) {
-        let data = loadedPokemonGerman[j];
-
-        data['id'] = pokemonData[j].id;
-        data['name'] = pokemonData[j].names.find((name) => name.language.name === 'de')?.name;
-        data['color'] = pokemonData[j].color.name;
-        data['flavor'] = pokemonData[j].flavor_text_entries.find((flavor) => flavor.language.name === 'de')?.flavor_text;
-    }
-}
-
-
-function createNewJsonObject() {
-    loadedPokemonGerman.push({
-        'id': '',
-        'name': '',
-        'color': '',
-        'image': '',
-        'flavor': '',
-        'types': []
-    },);
 }
 
 
 function renderListOfPokemon() {
     let listContainer = document.getElementById('listOfPokemon');
     let data = loadedPokemonGerman;
-    // listContainer.innerHTML = '';
 
-    for (let i = 0; i < data.length; i++) {
-
+    for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
         let pokemonName = data[i]['name'];
         let pokemonFlavor = data[i]['flavor'];
         let pokemonID = data[i]['id'].toString().padStart(3, "0");
@@ -89,12 +78,13 @@ function renderListOfPokemon() {
 
         listContainer.innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
         pokemonTypeLabels(i);
-        pokemonNumber = pokemonNumber + 1;
     }
 
     for (let j = 0; j < data.length; j++) {
         document.getElementById(`pokemon${j}`).classList.remove('d-none');
     }
+    pokemonRendered = pokemonRendered + 30; // Sets new starting point for next Loading Loop
+    pokemonLoadedMax = pokemonLoadedMax + 30; // Sets new starting point for next Loading Loop
 }
 
 
@@ -107,6 +97,24 @@ function pokemonTypeLabels(j) {
         </div>
     `;
     }
+}
+
+
+function resetFetchedCachedData() {
+    pokemonRequests1 = [];
+    pokemonRequests2 = [];
+    pokemonData1 = [];
+    pokemonData2 = [];
+    pokemonResponse1 = [];
+    pokemonResponse2 = [];
+}
+
+
+async function loadMorePokemon() {
+    await loadAllPokemonData();
+    createGermanJson();
+    renderListOfPokemon();
+    resetFetchedCachedData();
 }
 
 
