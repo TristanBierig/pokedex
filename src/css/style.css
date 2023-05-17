@@ -23,12 +23,19 @@ body {
     display: none !important;
 }
 
-#load-more-pokemon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px;
+.no-pointer {
+    pointer-events: none;
 }
+
+.layer1 {
+    z-index: 1 !important;
+}
+
+.o-none {
+    opacity: 0;
+}
+
+
 
 /* Header */
 header {
@@ -246,48 +253,3 @@ header {
 }
 
 
-/* Hover Effects on cards */
-.pokemon-cards:hover {
-    height: 430px;
-    transition-delay: 525ms;
-}
-
-.pokemon-cards:hover .pokemon-types {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 1125ms;
-}
-
-.pokemon-cards:hover .pokemon-flavor {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 725ms;
-    transform: scale(1, 1);
-}
-
-.pokemon-cards:hover .card-line {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 725ms;
-    transform: scale(1, 1);
-}
-
-.pokemon-cards:hover .pokeball-bg::before {
-    animation-name: rotate;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-delay: 125ms;
-}
-
-
-/* Animations */
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}

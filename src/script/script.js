@@ -1,14 +1,14 @@
 let pokemonLoaded = 0;
 let pokemonRendered = 0;
-let pokemonLoadedMax = 30; // Defines number of pokemon getting loaded in one run. If change, then LOC 86, 87 numbers have to be changed accordingly
-let contentLoaded = true;
+let pokemonLoadedMax = 80; // Defines number of pokemon getting loaded in one run. If change, then LOC 86, 87 numbers have to be changed accordingly
+let contentLoading = false;
 
 let pokemonRequests1 = [];
 let pokemonRequests2 = [];
-let pokemonData1 = [];
-let pokemonData2 = [];
 let pokemonResponse1 = [];
 let pokemonResponse2 = [];
+let pokemonData1 = [];
+let pokemonData2 = [];
 
 
 async function init() {
@@ -60,7 +60,7 @@ function createGermanJson() {
         for (let j = 0; j < pokemonData1[i].types.length; j++) {
             loadedPokemonGerman[pokemonLoaded]['types'].push(pokemonData1[i].types[j].type.name);
         }
-        pokemonLoaded = pokemonLoaded + 1;
+        pokemonLoaded = pokemonLoaded + 1; // Sets number for own generated pokemon JSON
     }
 }
 
@@ -71,29 +71,32 @@ function renderListOfPokemon() {
 
     for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
         let pokemonName = data[i]['name'];
-        let pokemonFlavor = data[i]['flavor'];
+        let pokemonFlavor = data[i]['flavor']; // Description of pokemon
         let pokemonID = data[i]['id'].toString().padStart(3, "0");
         let pokemonImage = data[i]['image']; // URL of Image of Pokemon
-        let pokemonColor = data[i]['color']; // Color of Pokemon used as BG
+        let pokemonColor = data[i]['color']; // Color of Pokemon used as BG-CSS-Class
 
         listContainer.innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
         pokemonTypeLabels(i);
     }
 
     for (let j = 0; j < data.length; j++) {
-        document.getElementById(`pokemon${j}`).classList.remove('d-none');
+        document.getElementById(`pokemon${j}`).classList.remove('d-none'); // Makes all new loaded Cards reveal simultaneously
     }
-    pokemonRendered = pokemonRendered + 30; // Sets new starting point for next Loading Loop
-    pokemonLoadedMax = pokemonLoadedMax + 30; // Sets new starting point for next Loading Loop
+
+    pokemonRendered = pokemonRendered + 80; // Sets new starting point for next Loading Loop
+    pokemonLoadedMax = pokemonLoadedMax + 80; // Sets new starting point for next Loading Loop
 }
 
 
 function pokemonTypeLabels(j) {
     for (let i = 0; i < loadedPokemonGerman[j].types.length; i++) {
-        let type = loadedPokemonGerman[j].types[i];
+        let englishType = loadedPokemonGerman[j].types[i];
+        let germanType = germanTypes[englishType];
+
         document.getElementById(`pokemonTypes${j}`).innerHTML += `
-        <div class="${type} type">
-            ${type}
+        <div class="${englishType} type">
+            ${germanType}
         </div>
     `;
     }
@@ -111,11 +114,29 @@ function resetFetchedCachedData() {
 
 
 async function loadMorePokemon() {
+    toggleLoadingButtonAnimation();
     await loadAllPokemonData();
     createGermanJson();
     renderListOfPokemon();
     resetFetchedCachedData();
+    toggleLoadingButtonAnimation();
 }
+
+
+function toggleLoadingButtonAnimation() {
+    let defaultBall = document.getElementById('loading-btn-wrapper');
+    let loadingBall = document.getElementById('loading-anime-wrapper')
+
+    loadingBall.classList.toggle('layer1');
+    setTimeout(startButtonAnimation, 200, loadingBall, defaultBall); // Waits .2s for the fadeback transition just change in conjunction with the .fadeout class
+}
+
+
+function startButtonAnimation(loadingBall, defaultBall) {
+    loadingBall.classList.toggle('loading-anime');
+    defaultBall.classList.toggle('o-none');
+}
+ 
 
 
 function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor) {

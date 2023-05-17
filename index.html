@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/fonts.css">
     <link rel="stylesheet" href="src/css/types.css">
+    <link rel="stylesheet" href="src/css/animation.css">
     <link rel="icon" href="src/img/favicon.png">
     <script src="src/script/script.js"></script>
     <script src="src/script/germanData.js"></script>
 </head>
 
-<body onload="init()">
+<body id="body" onload="init()">
     <header>
         <img src="src/img/logo.png" alt="">
         <form action="">
@@ -27,9 +28,18 @@
     <main id="main-content">
         <section id="listOfPokemon"></section>
 
-        <div id="load-more-pokemon">
-            <button onclick="loadMorePokemon()">Mehr Pokemon laden</button>
-        </div>
+        <!-- Loading Button-->
+        <section id="load-button">
+
+            <div id="loading-anime-wrapper">
+                <img src="src/img/loading-btn.png" alt="">
+            </div>
+            <div id="loading-btn-wrapper" onclick="loadMorePokemon()" class="load-btn-wrapper">
+                <div class="upper ball"><img src="src/img/loading-btn.png" alt=""></div>
+                <div class="lower ball"><img src="src/img/loading-btn.png" alt=""></div>
+            </div>
+        </section>
+
 
         <section class="modal d-none">
             <div id="pokedex">
