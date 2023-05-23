@@ -41,13 +41,14 @@
         </section>
 
 
-        <section class="modal d-none">
-            <div id="pokedex">
+        <!-- Modal of Card -->
+        <section id="card-modal" class="modal d-none" onclick="closeModal()">
+            <div id="pokedex" onclick="doNotClose(event)">
 
                 <div id="pokedexOverview">
                     <div id="cardHeading">
                         <span id="pokedexName"></span>
-                        <span id="pokedexId">#</span>
+                        <span id="pokedexId"></span>
                     </div>
                     <div id="pokedexTypes">
 

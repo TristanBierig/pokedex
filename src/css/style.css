@@ -35,6 +35,16 @@ body {
     opacity: 0;
 }
 
+.hide::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 2;
+}
 
 
 /* Header */
@@ -48,7 +58,7 @@ header {
 
 /* Pokedex Card */
 .modal {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -74,19 +84,26 @@ header {
 
 /* Upper Part of the Card */
 #pokedexSprite {
-    max-width: 60%;
+    max-width: 80%;
     position: absolute;
     bottom: 0;
-    right: calc(50% - 114px);
+    right: 0;
+    left: 0;
+    top: 0;
+    margin: auto auto 0 auto;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
     z-index: 1;
 }
 
 #pokeball-bg {
-    width: 200px;
-    opacity: 0.5;
+    width: 480px;
+    opacity: 0.2;
     position: absolute;
     right: 0;
     bottom: 0;
+    left: 0;
+    top: 0;
+    margin: auto -40% -40% auto;
 }
 
 #pokedexOverview {
@@ -94,20 +111,19 @@ header {
     height: 55%;
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
+    overflow: hidden;
 }
 
 #cardHeading {
-    padding: 8px;
+    margin: auto 8px;
     display: flex;
     justify-content: space-between;
 }
 
 #pokedexTypes {
     display: flex;
-    flex-direction: column;
-    gap: 8px 0;
+    gap: 8px ;
     margin-left: 8px;
-    width: 33%;
 }
 
 .type {
@@ -251,5 +267,3 @@ header {
     font-family: cursive;
     font-size: 1rem;
 }
-
-
