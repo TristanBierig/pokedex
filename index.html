@@ -14,10 +14,11 @@
     <link rel="icon" href="src/img/favicon.png">
     <script src="src/script/script.js"></script>
     <script src="src/script/germanData.js"></script>
+    <script src="src/script/animation.js"></script>
 </head>
 
 <body id="body" onload="init()">
-    <header>
+    <header id="header">
         <img src="src/img/logo.png" alt="">
         <form action="">
             <input type="text" placeholder="Pokemon Name oder Id">
@@ -42,7 +43,7 @@
 
 
         <!-- Modal of Card -->
-        <section id="card-modal" class="modal d-none" onclick="closeModal()">
+        <section id="card-modal" class="modal" onclick="closeModal()">
             <div id="pokedex" onclick="doNotClose(event)">
 
                 <div id="pokedexOverview">

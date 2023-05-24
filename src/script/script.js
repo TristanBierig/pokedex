@@ -2,6 +2,7 @@ let pokemonLoaded = 0;
 let pokemonRendered = 0;
 let pokemonLoadedMax = 30; // Defines number of pokemon getting loaded in one run. If change, then LOC 123, 124 numbers have to be changed accordingly
 let contentLoading = false;
+let modalAnimationRunning = false;
 let statsNameData = [];
 let statsNameDataLoaded = false;
 
@@ -208,59 +209,7 @@ function resetFetchedCachedData() {
 }
 
 
-function toggleLoadingButtonAnimation() {
-    let defaultBall = document.getElementById('loading-btn-wrapper');
-    let loadingBall = document.getElementById('loading-anime-wrapper')
 
-    loadingBall.classList.toggle('layer1');
-    setTimeout(startButtonAnimation, 200, loadingBall, defaultBall); // Waits .2s for the fadeback transition. Just change in conjunction with the .fadeout class in animation.css
-}
-
-
-function startButtonAnimation(loadingBall, defaultBall) {
-    loadingBall.classList.toggle('loading-anime');
-    defaultBall.classList.toggle('o-none');
-}
-
-
-function openModal(i) {
-    let modal = document.getElementById('card-modal');
-    let data = loadedPokemonGerman;
-
-    let pokemonName = data[i]['name'];
-    let pokemonID = data[i]['id'].toString().padStart(3, "0");
-    let pokemonImage = data[i]['image']; // URL of Image of Pokemon
-    let pokemonColor = data[i]['color']; // Color of Pokemon used as BG-CSS-Class
-
-    document.getElementById('pokedexName').innerHTML = pokemonName;
-    document.getElementById('pokedexId').innerHTML = '#' + pokemonID;
-    document.getElementById('pokedexSprite').src = pokemonImage;
-    document.getElementById('pokedex').classList.add(pokemonColor);
-
-    for (let j = 0; j < loadedPokemonGerman[i].types.length; j++) {
-        let englishType = loadedPokemonGerman[i].types[j];
-        let germanType = germanTypes[englishType];
-
-        document.getElementById(`pokedexTypes`).innerHTML += `
-        <div class="${englishType} type">
-            ${germanType}
-        </div>
-    `;
-    }
-
-    document.getElementById('listOfPokemon').classList.add('hide');
-    modal.classList.remove('d-none');
-}
-
-
-function closeModal() {
-    let modal = document.getElementById('card-modal');
-
-    document.getElementById(`pokedexTypes`).innerHTML = '';
-    document.getElementById('pokedex').classList = '';
-    document.getElementById('listOfPokemon').classList.remove('hide');
-    modal.classList.add('d-none');
-}
 
 
 function doNotClose(event) {

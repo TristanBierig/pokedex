@@ -1,4 +1,3 @@
-
 /* ============ Hover Effects on cards ============== */
 .pokemon-cards:hover {
     height: 430px;
@@ -32,7 +31,6 @@
     animation-timing-function: linear;
     animation-delay: 125ms;
 }
-
 
 
 /* ==================== Loading Button ==================== */
@@ -150,6 +148,17 @@
     height: 62px;
 }
 
+
+/* ========== Modal Toggle Animation ========== */
+
+.modal-animation {
+    transform: rotate(0deg);
+    opacity: 1;
+}
+
+.blur {
+    filter: blur(5px);
+}
 
 /* ========== Animations ========== */
 @keyframes rotate {
