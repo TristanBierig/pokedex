@@ -220,8 +220,8 @@ function doNotClose(event) {
 
 function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor) {
     return `
-    <div class="d-none pokemon-cards ${pokemonColor}" id="pokemon${i}" onclick="openModal(${i})">
-    
+    <div class="d-none pokemon-cards" id="pokemon${i}" onclick="openModal(${i})">
+        <div id="card-bg" class="${pokemonColor}"></div>
         <div class="pokeball-bg">
             <img class="pokemon-sprite" src="${pokemonImage}" alt="" loading="lazy">
 
