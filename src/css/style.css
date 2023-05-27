@@ -67,7 +67,7 @@ header {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 80vh;
+    min-height: 80vh;
     width: 380px;
     color: white;
     text-align: center;
@@ -123,13 +123,8 @@ header {
 
 /* Upper Part of the Card */
 #pokedexSprite {
+    align-self: center;
     max-width: 80%;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    top: 0;
-    margin: auto auto 0 auto;
     filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
     z-index: 1;
 }
@@ -146,6 +141,8 @@ header {
 }
 
 #pokedexOverview {
+    display: flex;
+    flex-direction: column;
     position: relative;
     height: 55%;
     border-top-left-radius: 24px;
@@ -203,7 +200,7 @@ header {
     width: 250px;
     height: 250px;
     border-radius: 8px;
-    
+
     transition: 0.5s ease;
     cursor: pointer;
     margin: 50px 30px;
@@ -214,7 +211,7 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding-top: 100px;  
+    padding-top: 100px;
     transition: .4s;
 }
 

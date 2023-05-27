@@ -26,10 +26,12 @@ function openModal(i) {
     let pokemonID = data[i]['id'].toString().padStart(3, "0");
     let pokemonImage = data[i]['image']; // URL of Image of Pokemon
     let pokemonColor = data[i]['color']; // Color of Pokemon used as BG-CSS-Class
+    let nextPokemon = data[i + 1]['animation'];
 
     document.getElementById('pokedexName').innerHTML = pokemonName;
     document.getElementById('pokedexId').innerHTML = '#' + pokemonID;
     document.getElementById('pokedexSprite').src = pokemonImage;
+    document.getElementById('nextPokemon').src = nextPokemon;
     document.getElementById('pokedex').classList.add(pokemonColor);
 
     for (let j = 0; j < loadedPokemonGerman[i].types.length; j++) {

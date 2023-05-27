@@ -74,6 +74,7 @@ async function createGermanJson() {
         let height = pokemonData1[i].height;
         let weight = pokemonData1[i].weight;
         let genera = pokemonData2[i].genera.find((name) => name.language.name === 'de')?.genus;
+        let animated = pokemonData1[i].sprites.versions["generation-v"]["black-white"].animated.front_default;
 
         if (flavor == undefined) {
             flavor = "Für dieses Pokémon ist noch keine Beschreibung verfügbar!";
@@ -84,6 +85,7 @@ async function createGermanJson() {
             'name': name,
             'color': color,
             'image': image,
+            'animation': animated,
             'flavor': flavor,
             'stats': {
                 'key': statsNameData,
