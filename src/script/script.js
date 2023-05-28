@@ -23,6 +23,7 @@ let pokemonData2 = [];
 let pokemonDataAbility = [];
 let pokemonDataStats = [];
 /* ========== */
+let evo;
 
 
 async function init() {
@@ -76,6 +77,7 @@ async function createGermanJson() {
         let genera = pokemonData2[i].genera.find((name) => name.language.name === 'de')?.genus;
         let animated = pokemonData1[i].sprites.versions["generation-v"]["black-white"].animated.front_default;
 
+
         if (flavor == undefined) {
             flavor = "Für dieses Pokémon ist noch keine Beschreibung verfügbar!";
         }
@@ -95,7 +97,9 @@ async function createGermanJson() {
             'weight': weight,
             'genera': genera,
             'abilities': [],
-            'types': []
+            'types': [],
+            'evo-ID': await getEvolutionId(i),
+            'evo-Images': []
         });
 
         for (let j = 0; j < pokemonData1[i].types.length; j++) {
@@ -103,9 +107,33 @@ async function createGermanJson() {
         }
 
         processGermanStatValueData(i);
+        await fetchEvolutionData(i);
         await processGermanAbilityData(i);
         pokemonLoaded = pokemonLoaded + 1; // Sets number for self generated production JSON-Count
     }
+}
+
+
+async function fetchEvolutionData(i) {
+    evoResponse = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + loadedPokemonGerman[i]['evo-ID']);
+    evo = await evoResponse.json();
+
+    evo.chain.species.url.substring(42).slice(0, -1); // Gets ID of base pokemon
+    evo.chain.evolves_to[0].species.url.substring(42).slice(0, -1) // Gets ID of first evolution
+
+    // Checks if there is a second evolution
+    if (evo.chain.evolves_to[0].evolves_to.length != 0) {
+        evo.chain.evolves_to[0].evolves_to[0].species.url.substring(42).slice(0, -1) // Gets ID of second evolution if available
+    }
+}
+
+
+async function getEvolutionId(i) {
+    let evoURL = pokemonData2[i].evolution_chain.url;
+
+    evoResponse = await fetch(evoURL);
+    evoData = await evoResponse.json();
+    return evoData.id;
 }
 
 
@@ -209,9 +237,6 @@ function resetFetchedCachedData() {
     pokemonResponse1 = [];
     pokemonResponse2 = [];
 }
-
-
-
 
 
 function doNotClose(event) {

@@ -177,7 +177,11 @@ function generateModalLowerAboutHTML() {
     </thead>
     </table>
 
-<div id="pokedex-lower-line"><img src="src/img/favicon.png" alt=""></div>
+    <div class="modal-footer-container">
+        <div id="pokedex-lower-line">
+            <img src="src/img/favicon.png" alt=""> 
+        </div>
+    </div>
     `;
 }
 
@@ -185,7 +189,11 @@ function generateModalLowerAboutHTML() {
 function generateModalLowerStatsHTML() {
     document.getElementById('pokedexStatsLower').innerHTML = `
     <canvas id="myChart"></canvas>
-    <div id="pokedex-lower-line"><img src="src/img/favicon.png" alt=""></div>
+    <div class="modal-footer-container">
+    <div id="pokedex-lower-line">
+        <img src="src/img/favicon.png" alt="">
+    </div>
+    </div>
     `;
 }
 

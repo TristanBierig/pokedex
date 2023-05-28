@@ -233,7 +233,7 @@ header {
     content: '';
     position: absolute;
     top: 50%;
-    left: 32px;
+    left: 40px;
     transform: translateY(-50%);
     height: 2px;
     width: 120px;
@@ -244,11 +244,18 @@ header {
     content: '';
     position: absolute;
     top: 50%;
-    right: 32px;
+    right: 40px;
     transform: translateY(-50%);
     height: 2px;
     width: 120px;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-footer-container {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #myChart {
