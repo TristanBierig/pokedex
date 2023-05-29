@@ -122,6 +122,86 @@ header {
 
 }
 
+#nextPokemon {
+    height: 100px;
+    filter: brightness(0.7);
+    cursor: pointer;
+    transition: .3s ease;
+    border-radius: 16px;
+    opacity: 0.5;
+}
+
+.nextPokemon-container {
+    height: 100px;
+    /* Needed for lazy loading img to not disrupt layout */
+    width: 100px;
+    /* Needed for lazy loading img to not disrupt layout */
+    cursor: pointer;
+    margin-left: 8px;
+    position: relative;
+}
+
+.nextPokemon-container::before {
+    content: url(../img/loading-btn.png);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    border-radius: 50%;
+    overflow: hidden;
+    filter: brightness(0.4);
+    opacity: 0.5;
+    transition: .3s ease;
+}
+
+.nextPokemon-container:hover::before,
+.nextPokemon-container:hover #nextPokemon {
+    filter: brightness(1);
+    opacity: 1;
+}
+
+#prevPokemon {
+    width: 100px;
+    filter: brightness(0.7);
+    cursor: pointer;
+    transition: .3s ease;
+    opacity: 0.5;
+}
+
+.prevPokemon-container {
+    height: 100px;
+    /* Needed for lazy loading img to not disrupt layout */
+    width: 100px;
+    /* Needed for lazy loading img to not disrupt layout */
+    margin-right: 8px;
+    position: relative;
+}
+
+.prevPokemon-container::before {
+    content: url(../img/loading-btn.png);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    filter: brightness(0.4);
+    opacity: 0.5;
+    transition: .3s ease;
+}
+
+.prevPokemon-container:hover::before,
+.prevPokemon-container:hover #prevPokemon {
+    filter: brightness(1);
+    opacity: 1;
+}
+
+.prevPokemon-container-placeholder {
+    margin-right: 8px;
+    height: 100px;
+    width: 100px;
+}
+
 
 /* Upper Part of the Card */
 #pokedexSprite {
@@ -262,6 +342,21 @@ header {
     padding: 8px;
 }
 
+.evo-container div {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.evo-container img{
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5)); 
+}
+
+.arrow {
+    height: 36px;
+}
 
 /* List of all Pokemon */
 .pokemon-cards {

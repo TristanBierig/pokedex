@@ -5,6 +5,7 @@ let contentLoading = false;
 let modalAnimationRunning = false;
 let statsNameData = [];
 let statsNameDataLoaded = false;
+let evo;
 
 // Needed to cache Data for creating production JSON
 /* ========== */
@@ -23,7 +24,7 @@ let pokemonData2 = [];
 let pokemonDataAbility = [];
 let pokemonDataStats = [];
 /* ========== */
-let evo;
+
 
 
 async function init() {
@@ -107,23 +108,30 @@ async function createGermanJson() {
         }
 
         processGermanStatValueData(i);
-        await fetchEvolutionData(i);
+        await fetchEvolutionData();
         await processGermanAbilityData(i);
         pokemonLoaded = pokemonLoaded + 1; // Sets number for self generated production JSON-Count
     }
 }
 
 
-async function fetchEvolutionData(i) {
-    evoResponse = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + loadedPokemonGerman[i]['evo-ID']);
+async function fetchEvolutionData() {
+    evoResponse = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + loadedPokemonGerman[pokemonLoaded]['evo-ID']);
     evo = await evoResponse.json();
 
-    evo.chain.species.url.substring(42).slice(0, -1); // Gets ID of base pokemon
-    evo.chain.evolves_to[0].species.url.substring(42).slice(0, -1) // Gets ID of first evolution
+    let id = +evo.chain.species.url.substring(42).slice(0, -1);
+    loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`); // Gets ID of base pokemon
+    
+    // Checks if there is a first evolution
+    if (evo.chain.evolves_to.length != 0) {
+        let id = +evo.chain.evolves_to[0].species.url.substring(42).slice(0, -1);
+       loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`); // Gets ID of first evolution
+    }
 
     // Checks if there is a second evolution
     if (evo.chain.evolves_to[0].evolves_to.length != 0) {
-        evo.chain.evolves_to[0].evolves_to[0].species.url.substring(42).slice(0, -1) // Gets ID of second evolution if available
+        let id = +evo.chain.evolves_to[0].evolves_to[0].species.url.substring(42).slice(0, -1);
+        loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`); // Gets ID of second evolution if available
     }
 }
 
@@ -164,7 +172,7 @@ async function processGermanAbilityData(i) {
 
 async function processGermanStatNameData() {
 
-    // Fetch Data once
+    // Fetch Data once from first Pokemon only and use for all of them
     if (!statsNameDataLoaded) {
         for (let i = 0; i < pokemonData1[0].stats.length; i++) {
             let statNameURL = pokemonData1[0].stats[i].stat.url;
@@ -241,31 +249,4 @@ function resetFetchedCachedData() {
 
 function doNotClose(event) {
     event.stopPropagation();
-}
-
-
-
-function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor) {
-    return `
-    <div class="d-none pokemon-cards" id="pokemon${i}" onclick="openModal(${i})">
-        <div id="card-bg" class="${pokemonColor}"></div>
-        <div class="pokeball-bg">
-            <img class="pokemon-sprite" src="${pokemonImage}" alt="" loading="lazy">
-
-            <div class="card-header">
-                <span class="pokemon-name" id="">${pokemonName}</span>
-                <span class="pokemon-id" id="pokemonId">#${pokemonID}</span>
-            </div>
-            
-            <div class="card-line"></div>
-        </div>
-
-        <div class="pokemon-flavor">
-                "${pokemonFlavor}"
-        </div>
-
-        <div class="pokemon-types" id="pokemonTypes${i}">
-        </div>
-    </div>
-    `;
 }

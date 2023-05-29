@@ -17,15 +17,28 @@ function startButtonAnimation(loadingBall, defaultBall) {
 
 
 // Animates toggle Modal
-function openModal(i) {
+async function openModal(i) {
     if (deactivatedModal) return;
     deactivatedModal = true;
+
+    if (i == pokemonLoaded - 1) {
+        await loadMorePokemon();
+    }
+
+    // Generates different HTML template wether or not its the first pokemon targeted
+    if (i > 0) {
+        let prevPokemon = loadedPokemonGerman[i - 1]['image'];
+        document.getElementById('card-modal').innerHTML = generateModalBasicHTML(i);
+        document.getElementById('prevPokemon').src = prevPokemon;
+    } else {
+        document.getElementById('card-modal').innerHTML = generateFirstModalBasicHTML(i);
+    }
 
     let pokemonName = loadedPokemonGerman[i]['name'];
     let pokemonID = loadedPokemonGerman[i]['id'].toString().padStart(3, "0");
     let pokemonImage = loadedPokemonGerman[i]['image']; // URL of Image of Pokemon
     let pokemonColor = loadedPokemonGerman[i]['color']; // Color of Pokemon used as BG-CSS-Class
-    let nextPokemon = loadedPokemonGerman[i + 1]['animation'];
+    let nextPokemon = loadedPokemonGerman[i + 1]['image'];
 
     generateModalNavHTML(i);
     renderAbout(i);
@@ -60,10 +73,9 @@ function renderAbout(i) {
 
     let bgColor = loadedPokemonGerman[i]['color'];
     let aboutSpecies = loadedPokemonGerman[i]['genera'];
-    let aboutHeight = loadedPokemonGerman[i]['height'] * 0.1;
-    let aboutWeight = loadedPokemonGerman[i]['weight'] * 0.1;
+    let aboutHeight = loadedPokemonGerman[i]['height'] * 0.1; // Calc from dezimeter to meter
+    let aboutWeight = loadedPokemonGerman[i]['weight'] * 0.1; // Calc from hectogram to kilogram
     let aboutAbilities = loadedPokemonGerman[i]['abilities'];
-
 
     aboutHeight = aboutHeight.toLocaleString('de-DE', {
         maximumFractionDigits: 2
@@ -101,100 +113,41 @@ function renderStats(i) {
 }
 
 
-function createNewChart(ctx, label, value) {
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: label,
-            datasets: [{
-                label: 'Basiswert',
-                data: value,
-                borderWidth: 1,
-                backgroundColor: [
-                    'rgba(42, 192, 122, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(122, 84, 93, 0.2)',
-                    'rgba(25, 74, 107, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                ],
-                borderColor: [
-                    'rgb(42, 192, 122)',
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(122, 84, 93)',
-                    'rgba(25, 74, 107)',
-                    'rgba(255, 205, 86',
-                ]
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
+function renderEvolution(i) {
+  generateEvolutionHTML();
+
+  for (let j = 0; j < loadedPokemonGerman[i]['evo-Images'].length; j++) {
+    const element = loadedPokemonGerman[i]['evo-Images'][j];
+    document.getElementById(`evo${j}`).src = element;
+  }
+  
+  let bgColor = loadedPokemonGerman[i]['color'];
+  document.getElementById('statsNavStats').classList.remove(bgColor);
+  document.getElementById('statsNavAbout').classList.remove(bgColor);
+  document.getElementById('statsNavEvolution').classList.add(bgColor);
 }
 
 
-function generateModalNavHTML(i) {
-    document.getElementById('pokedexStatsNav').innerHTML = `
-                        <button id="statsNavAbout" onclick="renderAbout(${i})" class="btn">Übersicht</button>
-                        <button id="statsNavStats" onclick="renderStats(${i})" class="btn">Basiswerte</button>
-                        <button id="statsNavEvolution" onclick="renderEvolution(${i})" class="btn">Evolution</button>
-    `;
+async function nextPokemon(i) {
+    deactivatedModal = false;
+    if (contentLoading) {
+        return;
+    }
+
+    i = i + 1;
+    if (i == pokemonLoaded - 1) {
+        contentLoading = true;
+        await loadMorePokemon();
+        contentLoading = false;
+    }
+    openModal(i);
 }
 
 
-function generateModalLowerAboutHTML() {
-    document.getElementById('pokedexStatsLower').innerHTML = `
-    <table id="about-display">
-    <thead>
-        <tr>
-            <td>Spezies</td>
-            <td id="about-species"></td>
-        </tr>
-        <tr>
-            <td>Größe</td>
-            <td id="about-height"></td>
-        </tr>
-        <tr>
-            <td>Gewicht</td>
-            <td id="about-weight"></td>
-        </tr>
-        <tr>
-            <td>Fähigkeiten</td>
-            <td id="about-abilities"></td>
-        </tr>
-    </thead>
-    </table>
-
-    <div class="modal-footer-container">
-        <div id="pokedex-lower-line">
-            <img src="src/img/favicon.png" alt=""> 
-        </div>
-    </div>
-    `;
-}
-
-
-function generateModalLowerStatsHTML() {
-    document.getElementById('pokedexStatsLower').innerHTML = `
-    <canvas id="myChart"></canvas>
-    <div class="modal-footer-container">
-    <div id="pokedex-lower-line">
-        <img src="src/img/favicon.png" alt="">
-    </div>
-    </div>
-    `;
+function prevPokemon(i) {
+    deactivatedModal = false
+    i = i - 1;
+    openModal(i);
 }
 
 
