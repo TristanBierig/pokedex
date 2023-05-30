@@ -9,7 +9,7 @@ function renderListOfPokemon() {
         let pokemonColor = data[i]['color']; // Color of Pokemon used as BG-CSS-Class
 
         document.getElementById('listOfPokemon').innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
-        pokemonTypeLabels(i);
+        renderPokemonTypeLabels(i);
     }
 
     for (let j = 0; j < data.length; j++) {
@@ -21,7 +21,7 @@ function renderListOfPokemon() {
 }
 
 
-function pokemonTypeLabels(j) {
+function renderPokemonTypeLabels(j) {
     for (let i = 0; i < loadedPokemonGerman[j].types.length; i++) {
         let englishType = loadedPokemonGerman[j].types[i];
         let germanType = germanTypes[englishType];
