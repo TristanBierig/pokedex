@@ -33,7 +33,8 @@ function generateModalBasicHTML(i) {
             </div>
 
             <div id="pokedex" onclick="doNotClose(event)">
-
+                
+                <img id="pokeball-bg" src="src/img/pokeball-bg.png" alt="">
                 <div id="pokedexOverview">
                     <div id="cardHeading">
                         <span id="pokedexName"></span>
@@ -42,7 +43,7 @@ function generateModalBasicHTML(i) {
                     <div id="pokedexTypes">
 
                     </div>
-                    <img id="pokeball-bg" src="src/img/pokeball-bg.png" alt="">
+                    
                     <img id="pokedexSprite" src="" alt="">
                 </div>
 
@@ -59,6 +60,7 @@ function generateModalBasicHTML(i) {
 
             <div onclick="doNotClose(event); nextPokemon(${i})" class="nextPokemon-container">
                 <img id="nextPokemon" src="" alt="">
+                <div id="loading-indicator" class="d-none">Lädt...</div>
             </div>
     `;
 }
@@ -72,6 +74,7 @@ function generateFirstModalBasicHTML(i) {
 
             <div id="pokedex" onclick="doNotClose(event)">
 
+            <img id="pokeball-bg" src="src/img/pokeball-bg.png" alt="">
                 <div id="pokedexOverview">
                     <div id="cardHeading">
                         <span id="pokedexName"></span>
@@ -80,7 +83,7 @@ function generateFirstModalBasicHTML(i) {
                     <div id="pokedexTypes">
 
                     </div>
-                    <img id="pokeball-bg" src="src/img/pokeball-bg.png" alt="">
+                   
                     <img id="pokedexSprite" src="" alt="">
                 </div>
 
@@ -97,6 +100,7 @@ function generateFirstModalBasicHTML(i) {
 
             <div onclick="doNotClose(event); nextPokemon(${i})" class="nextPokemon-container">
                 <img id="nextPokemon" src="" alt="">
+                <div id="loading-indicator" class="d-none">Lädt...</div>
             </div>
     `;
 }
@@ -118,7 +122,7 @@ function generateModalLowerAboutHTML() {
     <table id="about-display">
     <thead>
         <tr>
-            <td>Spezies</td>
+            <td>Kategorie</td>
             <td id="about-species"></td>
         </tr>
         <tr>
@@ -163,9 +167,9 @@ function generateEvolutionHTML() {
     <div class="evo-container">
         <div>
             <img id="evo0" src="">
-            <img class="arrow" src="./src/img/right-arrow.png">
+            <img id="arrow1" class="arrow d-none" src="./src/img/right-arrow.png">
             <img id="evo1"src="">
-            <img class="arrow" src="./src/img/right-arrow.png">
+            <img id="arrow2" class="arrow d-none" src="./src/img/right-arrow.png">
             <img id="evo2" src="">
         </div>
 

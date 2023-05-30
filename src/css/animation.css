@@ -69,7 +69,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-    transition: .4s ease-in;
+    transition: 225ms ease-in;
 }
 
 .ball {
@@ -88,12 +88,12 @@
 
 .upper {
     top: 0;
-    transition: top .4s ease-in-out;
+    transition: top 225ms ease-in-out;
 }
 
 .lower {
     bottom: 0;
-    transition: bottom .4s ease-in-out;
+    transition: bottom 225ms ease-in-out;
 }
 
 .upper img {
@@ -159,6 +159,21 @@
     height: 62px;
 }
 
+/* Second Loadingbutton in the modal */
+.loading-indicator {
+    background-image: linear-gradient(90deg, #e45f60, white 80%);
+    border-radius: 40px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    margin-top: 8px;
+
+    animation-name: flash;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
 
 /* ========== Modal Animation ========== */
 
@@ -190,6 +205,20 @@
     }
 
     to {
+        opacity: 0;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
         opacity: 0;
     }
 }
