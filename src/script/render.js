@@ -1,6 +1,17 @@
 function renderListOfPokemon() {
     let data = loadedPokemonGerman;
 
+    generateSingleCard(data);
+    for (let j = 0; j < data.length; j++) {
+        document.getElementById(`pokemon${j}`).classList.remove('d-none'); // Makes all new loaded Cards reveal simultaneously
+    }
+
+    pokemonRendered = pokemonRendered + 20; // Sets new starting point for next Loading Loop
+    pokemonLoadedMax = pokemonLoadedMax + 20; // Sets new starting point for next Loading Loop
+}
+
+
+function generateSingleCard(data) {
     for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
         let pokemonName = data[i]['name'];
         let pokemonFlavor = data[i]['flavor']; // Description of pokemon
@@ -11,13 +22,6 @@ function renderListOfPokemon() {
         document.getElementById('listOfPokemon').innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
         renderPokemonTypeLabels(i);
     }
-
-    for (let j = 0; j < data.length; j++) {
-        document.getElementById(`pokemon${j}`).classList.remove('d-none'); // Makes all new loaded Cards reveal simultaneously
-    }
-
-    pokemonRendered = pokemonRendered + 20; // Sets new starting point for next Loading Loop
-    pokemonLoadedMax = pokemonLoadedMax + 20; // Sets new starting point for next Loading Loop
 }
 
 

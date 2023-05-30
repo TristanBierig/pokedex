@@ -1,6 +1,6 @@
 let pokemonLoaded = 0;
 let pokemonRendered = 0;
-let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then LOC 123, 124 numbers have to be changed accordingly
+let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then LOC 9 and 10 numbers in render.js have to be changed accordingly
 let contentLoading = false;
 let statsNameData = [];
 let statsNameDataLoaded = false;
