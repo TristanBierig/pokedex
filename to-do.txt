@@ -1,0 +1,12 @@
+Vor Abgabe:
+- Ladebild beim first load
+- responisve
+- Such funktion
+- Anzeigen nach name/id https://dev.to/slimpython/sort-array-of-json-object-by-key-value-easily-with-javascript-3hke 
+
+
+Upgrades für Portfolio Version:
+
+- Deutsch/ Englisch umschaltbar machen
+- evtl. Funktion zum vergleichen zweier Pokemon
+- Evolution für Evee anpassen und für fehlende GIFs einen Fallback

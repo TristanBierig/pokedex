@@ -50,6 +50,10 @@ header {
     transition: .4s;
 }
 
+header img {
+    cursor: pointer;
+}
+
 /* Pokedex Card */
 .modal {
     position: fixed;

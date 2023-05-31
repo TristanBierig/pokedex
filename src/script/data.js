@@ -1,11 +1,24 @@
 async function fetchAllPokemonData() {
-    // Gets baseline data needed from API
+    // Fetch all basic data from bunch of pokemon
     for (let i = pokemonLoaded + 1; i <= pokemonLoadedMax; i++) {
         const url1 = 'https://pokeapi.co/api/v2/pokemon/' + i;
         const url2 = 'https://pokeapi.co/api/v2/pokemon-species/' + i;
         pokemonRequests1.push(fetch(url1));
         pokemonRequests2.push(fetch(url2));
     }
+
+    pokemonResponse1 = await Promise.all(pokemonRequests1);
+    pokemonResponse2 = await Promise.all(pokemonRequests2);
+    pokemonData1 = await Promise.all(pokemonResponse1.map(response => response.json()));
+    pokemonData2 = await Promise.all(pokemonResponse2.map(response => response.json()));
+}
+
+
+async function fetchSinglePokemon(i) {
+    const url1 = 'https://pokeapi.co/api/v2/pokemon/' + i;
+    const url2 = 'https://pokeapi.co/api/v2/pokemon-species/' + i;
+    pokemonRequests1.push(fetch(url1));
+    pokemonRequests2.push(fetch(url2));
 
     pokemonResponse1 = await Promise.all(pokemonRequests1);
     pokemonResponse2 = await Promise.all(pokemonRequests2);
@@ -169,6 +182,36 @@ function processGermanStatValueData(i) {
     for (let l = 0; l < pokemonDataStats.length; l++) {
         let statValue = pokemonData1[i].stats[l].base_stat;
         loadedPokemonGerman[pokemonLoaded]['stats'].value.push(statValue);
+    }
+}
+
+
+async function searchPokemon() {
+    let nameInput = document.getElementById('search-input').value;
+    nameInput = nameInput.trim().toLowerCase();
+    let nameFormatted = nameInput.charAt(0).toUpperCase() + nameInput.slice(1);
+    let index = searchForIndex(nameFormatted);
+
+    if (Number.isInteger(index)) {
+        document.getElementById('listOfPokemon').innerHTML = '';
+        generateSingleCard(index);
+        document.getElementById(`pokemon${index}`).classList.remove('d-none');
+    } else {
+        await fetchSinglePokemon(nameInput);
+        createGermanJson();
+        resetFetchedCachedData();
+        searchPokemon();
+    } 
+}
+
+
+function searchForIndex(nameFormatted) {
+    for (let i = 0; i < loadedPokemonGerman.length; i++) {
+        const element = loadedPokemonGerman[i];
+
+        if (element.name === nameFormatted) {
+            return i;
+        } 
     }
 }
 

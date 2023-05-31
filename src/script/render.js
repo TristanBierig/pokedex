@@ -1,7 +1,10 @@
 function renderListOfPokemon() {
     let data = loadedPokemonGerman;
 
-    generateSingleCard(data);
+    for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
+        generateSingleCard(i);
+    }
+
     for (let j = 0; j < data.length; j++) {
         document.getElementById(`pokemon${j}`).classList.remove('d-none'); // Makes all new loaded Cards reveal simultaneously
     }
@@ -11,17 +14,15 @@ function renderListOfPokemon() {
 }
 
 
-function generateSingleCard(data) {
-    for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
-        let pokemonName = data[i]['name'];
-        let pokemonFlavor = data[i]['flavor']; // Description of pokemon
-        let pokemonID = data[i]['id'].toString().padStart(3, "0");
-        let pokemonImage = data[i]['image'];
-        let pokemonColor = data[i]['color']; // Color of Pokemon used as BG-CSS-Class
+function generateSingleCard(i) {
+    let pokemonName = loadedPokemonGerman[i]['name'];
+    let pokemonFlavor = loadedPokemonGerman[i]['flavor']; // Description of pokemon
+    let pokemonID = loadedPokemonGerman[i]['id'].toString().padStart(3, "0");
+    let pokemonImage = loadedPokemonGerman[i]['image'];
+    let pokemonColor = loadedPokemonGerman[i]['color']; // Color of Pokemon used as BG-CSS-Class
 
-        document.getElementById('listOfPokemon').innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
-        renderPokemonTypeLabels(i);
-    }
+    document.getElementById('listOfPokemon').innerHTML += singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonColor, pokemonFlavor);
+    renderPokemonTypeLabels(i);
 }
 
 
