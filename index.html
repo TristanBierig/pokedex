@@ -17,16 +17,15 @@
     <script src="src/script/data.js"></script>
     <script src="src/script/germanData.js"></script>
     <script src="src/script/render.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body id="body" onload="init()">
     <header id="header">
-        <img onclick="location.reload()" src="src/img/logo.png" alt="">
+        <img onclick="renderListOfPokemon()" src="src/img/logo.png" alt="">
         <div>
-            <input id="search-input" type="text" placeholder="Pokemon Name oder Id">
-            <button id="search-btn" onclick="searchPokemon()">Suchen</button>
+            <input id="search-input" onkeydown="searchPokemon()" type="text" placeholder="Suche Namen...">
         </div>
     </header>
 
@@ -47,9 +46,28 @@
 
 
         <!-- Modal of Card -->
-        <section id="card-modal" class="modal" onclick="closeModal()">
-        
+        <section id="card-modal" class="modal" onclick="closeModal()"></section>
+
+
+        <!-- First loading Screen -->
+        <section id="first-load" class="">
+            <img src="src/img/logo.png" alt="">
+            <div id="loading-indicator-start" class="loading-indicator">Lädt...</div>
         </section>
+
+        <footer id="footer">
+            <div>Credits</div>
+            <div>
+                <a href="https://www.flaticon.com/free-icons/pokemon" title="pokemon icons">Pokemon icons created by
+                    Smashicons - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/pokemon" title="pokemon icons">Pokemon icons created by
+                    amoghdesign - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/next" title="next icons">Next icons created by Darius Dan -
+                    Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/up-arrow" title="up-arrow icons">Up-arrow icons created by
+                    Kiranshastry - Flaticon</a>
+            </div>
+        </footer>
     </main>
 </body>
 

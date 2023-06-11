@@ -1,11 +1,13 @@
 let pokemonLoaded = 0;
 let pokemonRendered = 0;
-let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then LOC 9 and 10 numbers in render.js have to be changed accordingly
+let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then LOC 45 and 46 numbers have to be changed accordingly
 let contentLoading = false;
 let statsNameData = [];
 let statsNameDataLoaded = false;
 let evo;
 let deactivatedModal = false;
+let touchstartX = 0
+let touchendX = 0
 
 
 // Needed to cache Data for creating production JSON
@@ -33,7 +35,9 @@ async function init() {
     await processGermanStatNameData();
     await createGermanJson();
     renderListOfPokemon();
+    setNewStartForLoad();
     resetFetchedCachedData();
+    removeLoadingScreen();
 }
 
 
@@ -42,6 +46,7 @@ async function loadMorePokemon() {
     await fetchAllPokemonData();
     await createGermanJson();
     renderListOfPokemon();
+    setNewStartForLoad();
     resetFetchedCachedData();
     toggleLoadingButtonAnimation();
 }
@@ -90,6 +95,7 @@ function closeModal() {
     document.getElementById('listOfPokemon').classList.remove('blur');
     document.getElementById('load-button').classList.remove('blur');
     document.getElementById('card-modal').classList.remove('modal-animation');
+    document.getElementById('footer').classList.remove('blur');
 
     setTimeout(() => {
         clearModalInfos()
@@ -106,4 +112,18 @@ function clearModalInfos() {
 
 function doNotClose(event) {
     event.stopPropagation();
+}
+
+
+function setNewStartForLoad() {
+    pokemonRendered = pokemonRendered + 20; // Sets new starting point for next Loading Loop
+    pokemonLoadedMax = pokemonLoadedMax + 20; // Sets new starting point for next Loading Loop
+}
+
+
+function removeLoadingScreen() {
+    document.getElementById('first-load').classList.add('o-none');
+    setTimeout(() => {
+        document.getElementById('first-load').classList.add('d-none');
+    }, 500);
 }

@@ -28,7 +28,7 @@ function singlePokemonCardHTML(i, pokemonName, pokemonID, pokemonImage, pokemonC
 // Generates basic structre of Modal to render all data in
 function generateModalBasicHTML(i) {
     return `
-            <div onclick="doNotClose(event); prevPokemon(${i})" class="prevPokemon-container">
+            <div onclick="doNotClose(event); prevPokemon(${i})" id="prev-pokemon-btn" class="prevPokemon-container">
                 <img id="prevPokemon" src="" alt="">
             </div>
 
@@ -58,7 +58,7 @@ function generateModalBasicHTML(i) {
                 </div>
             </div>
 
-            <div onclick="doNotClose(event); nextPokemon(${i})" class="nextPokemon-container">
+            <div onclick="doNotClose(event); nextPokemon(${i})" id="next-pokemon-btn" class="nextPokemon-container">
                 <img id="nextPokemon" src="" alt="">
                 <div id="loading-indicator" class="d-none">Lädt...</div>
             </div>
@@ -69,7 +69,7 @@ function generateModalBasicHTML(i) {
 // Generate Modal Template just for the first Modal with placeholder Div to keep layout from disrupting
 function generateFirstModalBasicHTML(i) {
     return `
-            <div class="prevPokemon-container-placeholder"> 
+            <div class="prevPokemon-container-placeholder" id="prev-pokemon-btn"> 
             </div>
 
             <div id="pokedex" onclick="doNotClose(event)">
@@ -98,7 +98,7 @@ function generateFirstModalBasicHTML(i) {
                 </div>
             </div>
 
-            <div onclick="doNotClose(event); nextPokemon(${i})" class="nextPokemon-container">
+            <div onclick="doNotClose(event); nextPokemon(${i})" id="next-pokemon-btn" class="nextPokemon-container">
                 <img id="nextPokemon" src="" alt="">
                 <div id="loading-indicator" class="d-none">Lädt...</div>
             </div>
@@ -162,6 +162,7 @@ function generateModalLowerStatsHTML() {
 }
 
 
+// Generates Template for opened Modal => Lower half of Card: Evolution Chain
 function generateEvolutionHTML() {
     document.getElementById('pokedexStatsLower').innerHTML = `
     <div class="evo-container">

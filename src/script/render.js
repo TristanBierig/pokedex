@@ -1,16 +1,15 @@
 function renderListOfPokemon() {
     let data = loadedPokemonGerman;
+    document.getElementById('listOfPokemon').innerHTML = '';
+    document.getElementById('search-input').value = '';
 
-    for (let i = pokemonRendered; i < pokemonLoadedMax; i++) {
+    for (let i = 0; i < loadedPokemonGerman.length; i++) {
         generateSingleCard(i);
     }
 
     for (let j = 0; j < data.length; j++) {
         document.getElementById(`pokemon${j}`).classList.remove('d-none'); // Makes all new loaded Cards reveal simultaneously
     }
-
-    pokemonRendered = pokemonRendered + 20; // Sets new starting point for next Loading Loop
-    pokemonLoadedMax = pokemonLoadedMax + 20; // Sets new starting point for next Loading Loop
 }
 
 
@@ -86,6 +85,7 @@ function animateOpenModal() {
     document.getElementById('header').classList.add('blur');
     document.getElementById('listOfPokemon').classList.add('blur');
     document.getElementById('load-button').classList.add('blur');
+    document.getElementById('footer').classList.add('blur');
 }
 
 
