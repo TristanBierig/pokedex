@@ -17,6 +17,7 @@
     <script src="src/script/data.js"></script>
     <script src="src/script/germanData.js"></script>
     <script src="src/script/render.js"></script>
+    <script src="src/script/swipe.js" defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 </head>
@@ -46,7 +47,8 @@
 
 
         <!-- Modal of Card -->
-        <section id="card-modal" class="modal" onclick="closeModal()"></section>
+        <section id="card-modal" class="modal" onclick="closeModal()" data-swipe-threshold="100"
+        data-swipe-unit="px"></section>
 
 
         <!-- First loading Screen -->

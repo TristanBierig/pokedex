@@ -6,8 +6,7 @@ let statsNameData = [];
 let statsNameDataLoaded = false;
 let evo;
 let deactivatedModal = false;
-let touchstartX = 0
-let touchendX = 0
+let currentModal;
 
 
 // Needed to cache Data for creating production JSON
@@ -55,6 +54,7 @@ async function loadMorePokemon() {
 async function openModal(i) {
     if (deactivatedModal) return;
     deactivatedModal = true;
+    currentModal = i;
 
     if (i == pokemonLoaded - 1) { // Checks if clicked Pokemon is last loaded and loads the next bunch
         await loadMorePokemon();
@@ -126,4 +126,38 @@ function removeLoadingScreen() {
     setTimeout(() => {
         document.getElementById('first-load').classList.add('d-none');
     }, 500);
+}
+
+
+// Mobile Swipe Navigation
+document.addEventListener('swiped-left', function (e) {
+    if (deactivatedModal) {
+        swipeNext();
+    }
+});
+
+
+document.addEventListener('swiped-up', function (e) {
+    closeModal();
+});
+
+
+document.addEventListener('swiped-right', function (e) {
+    swipePrev();
+});
+
+
+function swipeNext() {
+    deactivatedModal = false;
+    let index = currentModal + 1;
+    openModal(index);
+}
+
+
+function swipePrev() {
+    let index = currentModal - 1;
+    if (index >= 0) {
+        deactivatedModal = false;
+        openModal(index);
+    }
 }

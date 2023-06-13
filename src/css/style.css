@@ -526,7 +526,7 @@ footer a {
 
 
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
 
     #next-pokemon-btn {
         display: none;
@@ -539,6 +539,7 @@ footer a {
     #pokedex {
         height: 100vh !important;
         border-radius: 0;
+        width: auto;
     }
 
     #pokedexStats {
@@ -562,6 +563,6 @@ footer a {
     }
 
     #pokedex-lower-line img {
-        content:url(../img/up-arrow.png);
+        content: url(../img/up-arrow.png);
     }
 }
