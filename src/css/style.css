@@ -8,6 +8,25 @@ body {
     font-family: 'Sigmar';
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#search-input {
+    padding: 8px;
+    background-color: rgb(255, 206, 58);
+    border: 2px solid rgb(42, 107, 178);
+    box-shadow: 0 0 15px rgba(32, 50, 108, 0.5);
+    transition: .4s ease-in-out;
+}
+
+#search-btn {
+    transition: .4s ease-in-out;
+}
+
 .main-content {
     display: flex;
     justify-content: center;
@@ -48,6 +67,7 @@ header {
     padding: 8px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     transition: .4s;
+    gap: 8px;
 }
 
 header img {
@@ -525,8 +545,7 @@ footer a {
 }
 
 
-
-@media (max-width: 600px) {
+@media(max-width: 600px) {
 
     #next-pokemon-btn {
         display: none;
@@ -539,7 +558,7 @@ footer a {
     #pokedex {
         height: 100vh !important;
         border-radius: 0;
-        width: auto;
+        width: 100%;
     }
 
     #pokedexStats {
@@ -564,5 +583,17 @@ footer a {
 
     #pokedex-lower-line img {
         content: url(../img/up-arrow.png);
+    }
+
+    .search-container img {
+        display: none;
+    }
+
+    #search-input {
+        opacity: 100%;
+    }
+
+    #listOfPokemon {
+        padding-top: 36px;
     }
 }

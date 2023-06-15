@@ -27,7 +27,6 @@ async function createGermanJson() {
         let genera = pokemonData2[i].genera.find((name) => name.language.name === 'de')?.genus;
         let animated = pokemonData1[i].sprites.versions["generation-v"]["black-white"].animated.front_default;
 
-
         if (flavor == undefined) {
             flavor = "Für dieses Pokémon ist noch keine Beschreibung verfügbar!";
         }
@@ -46,7 +45,10 @@ async function createGermanJson() {
             'height': height,
             'weight': weight,
             'genera': genera,
-            'abilities': [],
+            'abilities': {
+                'ability-Name': [],
+                'ability-Url': []
+            },
             'types': [],
             'evo-ID': await getEvolutionId(i),
             'evo-Images': []
@@ -56,45 +58,51 @@ async function createGermanJson() {
             loadedPokemonGerman[pokemonLoaded]['types'].push(pokemonData1[i].types[j].type.name);
         }
 
+        for (let k = 0; k < pokemonData1[i].abilities.length; k++) {
+            const element = pokemonData1[i].abilities[k];
+            loadedPokemonGerman[pokemonLoaded]['abilities']['ability-Url'].push(element.ability.url);
+        }
+
         processGermanStatValueData(i);
-        await processEvolutionData();
-        await processGermanAbilityData(i);
         pokemonLoaded = pokemonLoaded + 1; // Sets number for self generated production JSON-Count
     }
 }
 
 
-async function processEvolutionData() {
-    await fetchEvolutionData();
+async function processEvolutionData(i) {
+    if (loadedPokemonGerman[i]['evo-Images'].length > 0) {
+        return;
+    }
+    await fetchEvolutionData(i);
     let id = +evo.chain.species.url.substring(42).slice(0, -1); // Gets ID of base pokemon
     let url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/';
 
-    loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(url + id + '.gif');
-    checkForFirstEvolution(url, id);
+    loadedPokemonGerman[i]['evo-Images'].push(url + id + '.gif');
+    checkForFirstEvolution(url, i);
 }
 
 
-async function fetchEvolutionData() {
-    evoResponse = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + loadedPokemonGerman[pokemonLoaded]['evo-ID']);
+async function fetchEvolutionData(i) {
+    evoResponse = await fetch('https://pokeapi.co/api/v2/evolution-chain/' + loadedPokemonGerman[i]['evo-ID']);
     evo = await evoResponse.json();
 }
 
 
-function checkForFirstEvolution(url, id) {
+function checkForFirstEvolution(url, i) {
     if (evo.chain.evolves_to.length != 0) {
         let id = +evo.chain.evolves_to[0].species.url.substring(42).slice(0, -1); // Gets ID of first evolution
-        loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(url + id + '.gif');
+        loadedPokemonGerman[i]['evo-Images'].push(url + id + '.gif');
     } else {
         return; // Prevents Error if Pokemon has no Evolution at all
     }
-    checkForSecondEvolution(url, id);
+    checkForSecondEvolution(url, i);
 }
 
 
-function checkForSecondEvolution(url, id) {
+function checkForSecondEvolution(url, i) {
     if (evo.chain.evolves_to[0].evolves_to.length != 0) {
         let id = +evo.chain.evolves_to[0].evolves_to[0].species.url.substring(42).slice(0, -1); // Gets ID of second evolution if available
-        loadedPokemonGerman[pokemonLoaded]['evo-Images'].push(url + id + '.gif');
+        loadedPokemonGerman[i]['evo-Images'].push(url + id + '.gif');
     }
 }
 
@@ -109,19 +117,26 @@ async function getEvolutionId(i) {
 
 
 async function processGermanAbilityData(i) {
+    if (contentLoading) {
+        return
+    }
+    contentLoading = true;
     await fetchGermanAbilityData(i);
-    findGermanAbilityTerm();
+    findGermanAbilityTerm(i);
     resetAbilityCache();
+    contentLoading = false;
 }
 
 
 async function fetchGermanAbilityData(i) {
-    let abilities = pokemonData1[i].abilities;
+    let abilities = loadedPokemonGerman[i].abilities;
 
+    if (abilities['ability-Name'].length > 0) {
+        return;
+    }
     // Fetch Data
-    for (let j = 0; j < abilities.length; j++) {
-        let abilityURL = abilities[j].ability.url;
-        pokemonRequestsAbility.push(fetch(abilityURL));
+    for (let j = 0; j < abilities['ability-Url'].length; j++) {
+        pokemonRequestsAbility.push(fetch(abilities['ability-Url'][j]));
     }
 
     pokemonResponseAbility = await Promise.all(pokemonRequestsAbility);
@@ -129,11 +144,11 @@ async function fetchGermanAbilityData(i) {
 }
 
 
-function findGermanAbilityTerm() {
+function findGermanAbilityTerm(i) {
     // Searches for german Term and pushing it to production JSON
     for (let k = 0; k < pokemonDataAbility.length; k++) {
         let ability = pokemonDataAbility[k].names.find((name) => name.language.name === 'de')?.name;
-        loadedPokemonGerman[pokemonLoaded]['abilities'].push(ability);
+        loadedPokemonGerman[i].abilities['ability-Name'].push(ability);
     }
 }
 
@@ -176,7 +191,7 @@ function processGermanStatValueData(i) {
 async function searchPokemon() {
     let nameInput = document.getElementById('search-input').value;
     nameInput = nameInput.trim().toLowerCase();
-    
+
     if (!nameInput.match(/^[a-zA-Z]+$/)) { // Returns if input is anything but letters
         return;
     }

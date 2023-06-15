@@ -59,6 +59,8 @@ async function openModal(i) {
     if (i == pokemonLoaded - 1) { // Checks if clicked Pokemon is last loaded and loads the next bunch
         await loadMorePokemon();
     }
+    await processGermanAbilityData(i);
+    await processEvolutionData(i);
     checkForFirstCardModal(i);
     renderBaseData(i);
     renderTypes(i);
@@ -126,6 +128,12 @@ function removeLoadingScreen() {
     setTimeout(() => {
         document.getElementById('first-load').classList.add('d-none');
     }, 500);
+}
+
+
+function openSearchbar() {
+    document.getElementById('search-input').classList.remove('o-none');
+    document.getElementById('search-btn').classList.add('o-none');
 }
 
 

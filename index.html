@@ -17,7 +17,7 @@
     <script src="src/script/data.js"></script>
     <script src="src/script/germanData.js"></script>
     <script src="src/script/render.js"></script>
-    <script src="src/script/swipe.js" defer></script>
+   
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 </head>
@@ -25,8 +25,9 @@
 <body id="body" onload="init()">
     <header id="header">
         <img onclick="renderListOfPokemon()" src="src/img/logo.png" alt="">
-        <div>
-            <input id="search-input" onkeydown="searchPokemon()" type="text" placeholder="Suche Namen...">
+        <div class="search-container">
+            <input id="search-input" onkeydown="searchPokemon()" type="text" class="o-none" placeholder="Suche Namen...">
+            <img id="search-btn" onclick="openSearchbar()" src="src/img/search-11-48.png" alt="">
         </div>
     </header>
 
@@ -47,7 +48,7 @@
 
 
         <!-- Modal of Card -->
-        <section id="card-modal" class="modal" onclick="closeModal()" data-swipe-threshold="100"
+        <section id="card-modal" class="modal" onclick="closeModal()" data-swipe-threshold="150"
         data-swipe-unit="px"></section>
 
 
@@ -71,6 +72,7 @@
             </div>
         </footer>
     </main>
+    <script src="src/script/swipe.js" defer></script>
 </body>
 
 </html>

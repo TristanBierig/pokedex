@@ -109,7 +109,7 @@ function renderAbout(i) {
 
 function settingAboutHTML(i, aboutHeight, aboutWeight) {
     let aboutSpecies = loadedPokemonGerman[i]['genera'];
-    let aboutAbilities = loadedPokemonGerman[i]['abilities'];
+    let aboutAbilities = loadedPokemonGerman[i].abilities['ability-Name'];
 
     document.getElementById('about-species').innerHTML = aboutSpecies;
     document.getElementById('about-height').innerHTML = aboutHeight;
