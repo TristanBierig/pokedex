@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="src/css/types.css">
     <link rel="stylesheet" href="src/css/animation.css">
     <link rel="icon" href="src/img/favicon.png">
+
     <script src="src/script/templates.js"></script>
     <script src="src/script/script.js"></script>
     <script src="src/script/data.js"></script>
     <script src="src/script/germanData.js"></script>
     <script src="src/script/render.js"></script>
-   
-
+    <script src="src/script/swipe.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 </head>
 
@@ -26,13 +26,20 @@
     <header id="header">
         <img onclick="renderListOfPokemon()" src="src/img/logo.png" alt="">
         <div class="search-container">
-            <input id="search-input" onkeydown="searchPokemon()" type="text" class="o-none" placeholder="Suche Namen...">
-            <img id="search-btn" onclick="openSearchbar()" src="src/img/search-11-48.png" alt="">
+            <input id="search-input" onkeyup="searchPokemon()" type="text"
+                placeholder="Suche Namen...">
+            <img id="search-btn" src="src/img/search-11-48.png" alt="">
         </div>
     </header>
 
     <main id="main-content">
         <section id="listOfPokemon"></section>
+
+        <section >
+            <a id="top-btn" href="#header">
+                <img src="src/img/up-arrow.png" alt="">
+            </a>
+        </section>
 
         <!-- Loading Button-->
         <section id="load-button">
@@ -48,8 +55,8 @@
 
 
         <!-- Modal of Card -->
-        <section id="card-modal" class="modal" onclick="closeModal()" data-swipe-threshold="150"
-        data-swipe-unit="px"></section>
+        <section id="card-modal" class="modal" onclick="closeModal()" data-swipe-threshold="75" data-swipe-unit="px">
+        </section>
 
 
         <!-- First loading Screen -->
@@ -72,7 +79,6 @@
             </div>
         </footer>
     </main>
-    <script src="src/script/swipe.js" defer></script>
 </body>
 
 </html>

@@ -86,6 +86,7 @@ function animateOpenModal() {
     document.getElementById('listOfPokemon').classList.add('blur');
     document.getElementById('load-button').classList.add('blur');
     document.getElementById('footer').classList.add('blur');
+    document.getElementById('top-btn').classList.add('blur');
 }
 
 

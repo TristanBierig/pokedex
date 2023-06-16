@@ -1,47 +1,49 @@
-/* ============ Hover Effects on cards ============== */
-.pokemon-cards:hover {
-    z-index: 2;
-}
+@media (hover: hover) and (pointer: fine) {
 
-.pokemon-cards:hover #card-bg {
-    height: 465px;
-}
+    /* ============ Hover Effects on cards only on Desktop ============== */
+    .pokemon-cards:hover {
+        z-index: 2;
+    }
 
-.pokemon-cards:hover::before {
-    height: 465px;
-}
+    .pokemon-cards:hover #card-bg {
+        height: 465px;
+    }
 
-.pokemon-cards:hover .pokemon-types {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 225ms;
-}
+    .pokemon-cards:hover::before {
+        height: 465px;
+    }
 
-.pokemon-cards:hover .pokemon-flavor {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 225ms;
-}
+    .pokemon-cards:hover .pokemon-types {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 225ms;
+    }
 
-.pokemon-cards:hover .card-line {
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 225ms;
-    transform: scale(1, 1);
-}
+    .pokemon-cards:hover .pokemon-flavor {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 225ms;
+    }
 
-.pokemon-cards:hover .pokeball-bg {
-    top: -36%;
-}
+    .pokemon-cards:hover .card-line {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 225ms;
+        transform: scale(1, 1);
+    }
 
-.pokemon-cards:hover .pokeball-bg::before {
-    animation-name: rotate;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-delay: 125ms;
-}
+    .pokemon-cards:hover .pokeball-bg {
+        top: -36%;
+    }
 
+    .pokemon-cards:hover .pokeball-bg::before {
+        animation-name: rotate;
+        animation-duration: 6s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-delay: 125ms;
+    }
+}
 
 /* ==================== Loading Button ==================== */
 #load-button {

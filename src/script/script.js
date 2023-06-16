@@ -1,6 +1,6 @@
 let pokemonLoaded = 0;
 let pokemonRendered = 0;
-let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then LOC 45 and 46 numbers have to be changed accordingly
+let pokemonLoadedMax = 20; // Defines number of pokemon getting loaded in one run. If change, then setNewStartForLoad() numbers have to be changed accordingly
 let contentLoading = false;
 let statsNameData = [];
 let statsNameDataLoaded = false;
@@ -54,6 +54,7 @@ async function loadMorePokemon() {
 async function openModal(i) {
     if (deactivatedModal) return;
     deactivatedModal = true;
+    disableScroll()
     currentModal = i;
 
     if (i == pokemonLoaded - 1) { // Checks if clicked Pokemon is last loaded and loads the next bunch
@@ -92,12 +93,14 @@ function closeModal() {
     if (contentLoading) {
         return;
     }
+    enableScroll()
 
     document.getElementById('header').classList.remove('blur');
     document.getElementById('listOfPokemon').classList.remove('blur');
     document.getElementById('load-button').classList.remove('blur');
     document.getElementById('card-modal').classList.remove('modal-animation');
     document.getElementById('footer').classList.remove('blur');
+    document.getElementById('top-btn').classList.remove('blur');
 
     setTimeout(() => {
         clearModalInfos()
@@ -128,12 +131,6 @@ function removeLoadingScreen() {
     setTimeout(() => {
         document.getElementById('first-load').classList.add('d-none');
     }, 500);
-}
-
-
-function openSearchbar() {
-    document.getElementById('search-input').classList.remove('o-none');
-    document.getElementById('search-btn').classList.add('o-none');
 }
 
 
@@ -168,4 +165,13 @@ function swipePrev() {
         deactivatedModal = false;
         openModal(index);
     }
+}
+
+
+function disableScroll(){
+  document.getElementById('body').classList.add('no-scroll');
+}
+
+function enableScroll(){
+    document.getElementById('body').classList.remove('no-scroll');
 }

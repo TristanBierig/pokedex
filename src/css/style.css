@@ -1,6 +1,7 @@
 /* General Styling */
 html {
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -20,11 +21,20 @@ body {
     background-color: rgb(255, 206, 58);
     border: 2px solid rgb(42, 107, 178);
     box-shadow: 0 0 15px rgba(32, 50, 108, 0.5);
-    transition: .4s ease-in-out;
 }
 
-#search-btn {
-    transition: .4s ease-in-out;
+#top-btn {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 28px;
+    right: 28px;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 100%;
+    cursor: pointer;
+    z-index: 99;
 }
 
 .main-content {
@@ -44,6 +54,10 @@ body {
 
 .d-none {
     display: none !important;
+}
+
+.no-scroll {
+    overflow: hidden;
 }
 
 .no-pointer {
@@ -70,7 +84,7 @@ header {
     gap: 8px;
 }
 
-header img {
+header img:first-child {
     cursor: pointer;
 }
 
@@ -81,6 +95,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 16px;
 }
 
 footer div:last-child {
@@ -556,7 +571,7 @@ footer a {
     }
 
     #pokedex {
-        height: 100vh !important;
+        height: 100svh !important;
         border-radius: 0;
         width: 100%;
     }
